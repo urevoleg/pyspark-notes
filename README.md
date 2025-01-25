@@ -1,5 +1,7 @@
 # PySpark Notes
 
+![](img/pyspark_hell.jpeg)
+
 ## Links
 
 0. [Install libs (zoocamp)](https://github.com/DataTalksClub/data-engineering-zoomcamp/tree/main/05-batch/setup)

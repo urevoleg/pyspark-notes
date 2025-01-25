@@ -24,7 +24,7 @@ def get_spark_session(n: t.Any = 4):
     .config("spark.jars.packages", "org.apache.hadoop:hadoop-aws:3.3.4") \
     .config("spark.driver.memory", "4g") \
     .config("spark.executor.memory", "4g") \
-    .config("spark.executor.cores", "4") \
+    .config("spark.default.parallelism", "100")\
     .getOrCreate()
 
     # .config("spark.jars.packages", "org.apache.iceberg:iceberg-spark-runtime-3.3_2.12:1.4.0") \
@@ -63,6 +63,7 @@ def processing(bucket: str, s3_prefix: str):
     logging.info(f'Content processing....')
 
     spark = get_spark_session(n=4)
+    logging.info(f'Spark version: {spark.version}')
     setup_s3_with_spark(spark=spark)
 
     started_at = pendulum.now()
@@ -132,5 +133,5 @@ if __name__ == "__main__":
     dm_date = pendulum.today().date()
 
     s3_bucket = "public-bucket-6"
-    s3_prefix = f"reddit/2025-*-*"
+    s3_prefix = "reddit/2025-01-1{5,6,7,8,9}"
     processing(bucket=s3_bucket, s3_prefix=s3_prefix)
